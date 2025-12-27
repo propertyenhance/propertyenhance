@@ -1,27 +1,29 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 export default function Uploader() {
-  const uploaderRef = useRef(null);
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://unpkg.com/@autoenhance.ai/web";
     script.setAttribute("api-key", "bfdc636a-a98a-4e34-8b70-d410776c423e");
     script.async = true;
-    document.body.appendChild(script);
+    document.head.appendChild(script); // Better in head
 
     return () => {
-      document.body.removeChild(script);
+      document.head.removeChild(script);
     };
   }, []);
 
   return (
-    <div className="p-8 bg-surface rounded-lg max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-primary">PropertyEnhance</h1>
-      <p className="mb-4">Upload photos for AI enhancement</p>
-      <image-uploader ref={uploaderRef} theme="dark" max-files="50"></image-uploader>
+    <div className="p-8 bg-surface rounded-lg max-w-4xl mx-auto text-center">
+      <h1 className="text-4xl font-bold mb-8 text-primary">PropertyEnhance.co.za</h1>
+      <p className="text-xl mb-6">Upload property photos for instant AI enhancement</p>
+      <image-uploader
+        theme="dark"
+        max-files="50"
+        preferences='{"ai_version": "latest"}'
+      ></image-uploader>
     </div>
   );
 }
